@@ -8,10 +8,12 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 
+Vue.config.productionTip = false;
+
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'http://localhost:3020/graphql',
+  uri: 'https://trilha-de-aprendizado-gvand.herokuapp.com/graphql',
 });
 
 // Cache implementation
@@ -21,14 +23,17 @@ const cache = new InMemoryCache();
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
+  connectToDevTools: true,
 });
+
+Vue.use(VueApollo);
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
+  defaultOptions: {
+    $loadingKey: 'loading',
+  },
 });
-
-Vue.config.productionTip = false;
-Vue.use(VueApollo);
 
 new Vue({
   router,
