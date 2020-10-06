@@ -1,31 +1,24 @@
 <template>
-  <div>
-    <h4 v-if="loading">loading...</h4>
-    <film-card v-else :movie="Movie[0]" />
-  </div>
+  <ApolloQuery
+    :query="require('@/graphql/movies/GetMoviesByGenre.gql')">
+    <template v-slot="{ result: { loading, error, data } }">
+      <div v-if="loading" class="loading apollo">Carregando...</div>
+      <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
+      <div v-else-if="data" class="result apollo">
+        <film-list :movies="data.data.Genre" />
+      </div>
+    </template>
+  </ApolloQuery>
 </template>
 
 <script>
-// @ is an alias to /src
-import FilmCard from '@/components/molecules/FilmCard/index.vue';
-import { MOVIES } from '@/constants/graphql';
+import FilmList from '@/components/organisms/FilmList/index.vue';
 
 export default {
   name: 'Home',
 
-  data: () => ({
-    Movie: [],
-    loading: 0,
-  }),
-
   components: {
-    FilmCard,
-  },
-
-  apollo: {
-    Movie: {
-      query: MOVIES,
-    },
+    FilmList,
   },
 };
 </script>

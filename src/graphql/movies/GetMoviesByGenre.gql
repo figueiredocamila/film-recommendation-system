@@ -1,0 +1,16 @@
+query GetMoviesByGenre {
+  Genre {
+    name
+    movies {
+      title
+      poster
+      year
+      imdbVotes
+      runtime
+      in_genre {
+        name
+      }
+      imdbRating
+    }
+  }
+}

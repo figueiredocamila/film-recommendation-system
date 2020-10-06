@@ -20,7 +20,7 @@
           >
           mdi-star
           </v-icon>
-          <small>{{format.formatRating(movie.imdbRating)}}</small>
+          <small>{{format.formatRating(movie.imdbRating).toFixed(1)}}</small>
 
           <v-spacer></v-spacer>
 
@@ -56,7 +56,7 @@
           <div class="rating">
             <div class="d-flex justify-space-between">
               <span>Rating</span>
-              <span>{{`${format.formatRating(movie.imdbRating)}/5`}}</span>
+              <span>{{`${format.formatRating(movie.imdbRating).toFixed(1)}/5`}}</span>
             </div>
             <v-rating
               :value="format.formatRating(movie.imdbRating)"
